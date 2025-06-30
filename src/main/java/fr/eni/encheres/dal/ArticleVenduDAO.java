@@ -1,6 +1,8 @@
 package fr.eni.encheres.dal;
 
-public interface ArticleVenduDAO {
+import bo.ArticleVendu;
 
+public interface ArticleVenduDAO {
+    public ArticleVendu getArticleVendu(int id);
 
 }
