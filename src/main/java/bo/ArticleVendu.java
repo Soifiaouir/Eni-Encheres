@@ -2,6 +2,7 @@ package bo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticleVendu {
     private long noArticle;
@@ -11,6 +12,7 @@ public class ArticleVendu {
     private LocalDate dateFinEncheres;
     private int prixInitial;
     private int prixVente;
+    private String etatVente;
 
     private Retrait lieuRetrait;
 
@@ -130,6 +132,15 @@ public class ArticleVendu {
         this.lstEncheres = lstEncheres;
     }
 
+    public String getEtatVente() {
+        return etatVente;
+    }
+
+    public void setEtatVente(String etatVente) {
+        this.etatVente = etatVente;
+    }
+
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("ArticleVendu{");
@@ -140,6 +151,7 @@ public class ArticleVendu {
         sb.append(", dateFinEncheres=").append(dateFinEncheres);
         sb.append(", prixInitial=").append(prixInitial);
         sb.append(", prixVente=").append(prixVente);
+        sb.append(", etatVente='").append(etatVente).append('\'');
         sb.append(", lieuRetrait=").append(lieuRetrait);
         sb.append(", utilisateur=").append(utilisateur);
         sb.append(", categorie=").append(categorie);
