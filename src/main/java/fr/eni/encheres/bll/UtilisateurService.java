@@ -1,0 +1,14 @@
+package fr.eni.encheres.bll;
+
+import fr.eni.encheres.bo.Utilisateur;
+
+import java.util.List;
+
+public interface UtilisateurService {
+
+    public void createUtilisateur(Utilisateur utilisateur);
+    public void updateUtilisateur(Utilisateur utilisateur);
+    public void deleteUtilisateur(long id);
+    public Utilisateur findUtilisateurById(long id);
+    public List<Utilisateur> findAllUtilisateurs();
+}

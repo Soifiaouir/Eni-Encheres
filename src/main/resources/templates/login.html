@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html data-th-replace="~{layouts/layout :: layout-enchere(
+					titrePage=~{:: title},
+					contenuPage=~{:: main},
+					ressourcesSupp=~{})}">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<main class="bg-neutral-200 rounded-b-lg min-h-[80vh] pt-50">
+    <div class="w-full px-3">
+        <section>
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="identifiant" class="block font-medium">Identifiant</label>
+                    <input type="text" name="identifiant" id="identifiant" class="border rounded-lg w-full py-1 px-2">
+                </div>
+                <div class="mb-3">
+                    <label for="motDePasse" class="block font-medium">Mot de passe</label>
+                    <input type="password" name="motDePasse" id="motDePasse" class="border rounded-lg w-full py-1 px-2">
+                </div>
+                <div class="mb-3 ">
+                    <button class="bg-lime-200 uppercase w-full py-3 font-bold">Se connecter</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+</body>
+</html>
