@@ -1,4 +1,4 @@
-package bo;
+package fr.eni.encheres.bo;
 
 import java.util.ArrayList;
 import java.util.List;
