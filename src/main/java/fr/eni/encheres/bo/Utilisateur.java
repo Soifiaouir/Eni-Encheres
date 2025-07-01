@@ -15,8 +15,8 @@ public class Utilisateur {
     private String codePostal;
     private String ville;
     private String motDePasse;
-    private int credit;
-    private boolean administrateur;
+    private int credit = 0;
+    private boolean administrateur = false;
 
     private List<ArticleVendu> lstArticles = new ArrayList<>();
 
