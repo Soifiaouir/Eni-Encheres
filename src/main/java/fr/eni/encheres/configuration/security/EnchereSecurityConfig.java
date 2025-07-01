@@ -11,13 +11,20 @@ public class EnchereSecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> {
+
+        http
+                .csrf(csrf -> csrf.disable()) // <----- temporaire
+                .authorizeHttpRequests(auth -> {
             auth
-            .requestMatchers("/*").permitAll()
-            .requestMatchers("/css/*").permitAll()
-            .requestMatchers("/font/*").permitAll()
-            .requestMatchers("/img/*").permitAll()
-            .anyRequest().denyAll();
+
+                    .requestMatchers(HttpMethod.GET,"/signin").permitAll()
+                    .requestMatchers(HttpMethod.POST,"/signin").permitAll()
+
+                    .requestMatchers("/*").permitAll()
+                    .requestMatchers("/css/*").permitAll()
+                    .requestMatchers("/font/*").permitAll()
+                    .requestMatchers("/img/*").permitAll()
+                    .anyRequest().denyAll();
         });
 
         http.formLogin(form -> {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-th-replace="~{layouts/layout :: layout-enchere(
+<html data-th-replace="~{layouts/layout-auth :: layout-enchere(
 					titrePage=~{:: title},
 					contenuPage=~{:: main},
 					ressourcesSupp=~{})}">
@@ -7,8 +7,8 @@
     <title>Title</title>
 </head>
 <body>
-<main class="bg-neutral-200 rounded-b-lg min-h-[80vh] pt-50">
-    <div class="w-full px-3">
+<main class="bg-neutral-200 rounded-b-lg min-h-[95vh] flex flex-col">
+    <div class="w-full px-5 mt-auto">
         <section>
             <form action="" method="post">
                 <div class="mb-3">

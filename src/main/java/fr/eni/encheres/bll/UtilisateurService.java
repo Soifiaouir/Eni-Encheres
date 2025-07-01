@@ -11,4 +11,6 @@ public interface UtilisateurService {
     public void deleteUtilisateur(long id);
     public Utilisateur findUtilisateurById(long id);
     public List<Utilisateur> findAllUtilisateurs();
+    public int checkPseudo(String pseudo);
+    public int checkEmail(String email);
 }

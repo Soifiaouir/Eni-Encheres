@@ -37,9 +37,12 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     private static final String DELETE_BY_ID = """
             DELETE FROM UTILISATEURS WHERE  no_utilisateur = :no_utilisateur
     """;
-    private static final String CHECK_PSEUDO_EMAIL_MATCH = """
+    private static final String CHECK_PSEUDO= """
             SELECT COUNT(*) FROM UTILISATEURS
-            WHERE pseudo = :pseudo AND email = :email
+            WHERE pseudo = :pseudo
+    """;private static final String CHECK_MAIL= """
+            SELECT COUNT(*) FROM UTILISATEURS
+            WHERE email = :email
     """;
 
     public UtilisateurDAOImpl(NamedParameterJdbcTemplate jdbcTemplate) {
@@ -103,17 +106,20 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
     }
 
     @Override
-    public int checkUtilisateurByLogin(String pseudo, String email) {
+    public int checkUtilisateurByPseudo(String pseudo) {
         MapSqlParameterSource map = new MapSqlParameterSource();
         map.addValue("pseudo", pseudo);
-        map.addValue("email", email);
 
-        Integer count = jdbcTemplate.queryForObject(CHECK_PSEUDO_EMAIL_MATCH, map, Integer.class);
+        Integer count = jdbcTemplate.queryForObject(CHECK_PSEUDO, map, Integer.class);
         return count != null ? count : 0; // Prevenir NullPointerExecption - retourne 0 si jamais count = null
     }
 
     @Override
-    public String findPseudoByEmail(String email) {
-        return "";
+    public int checkUtilisateurByEmail(String email) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("email", email);
+
+        Integer count = jdbcTemplate.queryForObject(CHECK_MAIL, map, Integer.class);
+        return count != null ? count : 0; // Prevenir NullPointerExecption - retourne 0 si jamais count = null
     }
 }
