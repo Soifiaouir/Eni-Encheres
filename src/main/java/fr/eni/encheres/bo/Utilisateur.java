@@ -1,21 +1,45 @@
 package fr.eni.encheres.bo;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.UniqueElements;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Utilisateur {
 
     private long noUtilisateur;
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String pseudo;
+
+    @NotBlank
     private String nom;
+
+    @NotBlank
     private String prenom;
+
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String telephone;
+
+    @NotBlank
     private String rue;
+
+    @NotBlank
     private String codePostal;
+
+    @NotBlank
     private String ville;
+
+    @NotBlank
     private String motDePasse;
-    private int credit = 0;
+    private int credit = 100;
     private boolean administrateur = false;
 
     private List<ArticleVendu> lstArticles = new ArrayList<>();
