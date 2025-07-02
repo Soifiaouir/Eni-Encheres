@@ -1,7 +1,7 @@
 package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bo.*;
-import fr.eni.encheres.config.BusinessException;
+import fr.eni.encheres.exception.BusinessException;
 import fr.eni.encheres.dal.*;
 import org.springframework.stereotype.Service;
 
@@ -78,9 +78,9 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
         Utilisateur utilisateur = utilisateurDAO.readUtilisateurById(articleVendu.getUtilisateur().getNoUtilisateur());
         articleVendu.setUtilisateur(utilisateur);
        // Enchere enchere = enchereDAO.readByNoEnchere(articleVendu
-        Categorie categorie = categorieDAO.readCategorie(articleVendu.getCategorie().getNoCategorie());
+        Categorie categorie = categorieDAO.readNoCategorie(articleVendu.getCategorie().getNoCategorie());
         articleVendu.setCategorie(categorie);
-        Retrait retrait = retraitDAO.readRetrait(articleVendu.getNoArticle());
+        Retrait retrait = retraitDAO.readByArticle(articleVendu.getNoArticle());
         articleVendu.setLieuRetrait(retrait);
 
     }

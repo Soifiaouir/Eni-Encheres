@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.naming.Binding;
 import java.util.List;
 
+@RequestMapping("/articles")
 @Controller
 public class VenteController {
 
@@ -21,39 +22,39 @@ public class VenteController {
         this.articleVenduService = articleVenduService;
     }
 
-    @GetMapping("/articles")
-    public String displayArticles(Model model) {
+    @GetMapping("/list_articles")
+    public String PagesListesEncheres(Model model) {
         List<ArticleVendu> list = articleVenduService.getLstArticleVendus();
         model.addAttribute("articlesLst", list);
-        return "articles";
+        return "view_article_list";
     }
 
-    @GetMapping("/fiche_article")
-    public String MettreArticleEnVente(Model model) {
+    @GetMapping("/create_article")
+    public String PageVendreUnArticle(Model model) {
         model.addAttribute("ArticleVendu", new ArticleVendu());
 
-        return "details_article";
+        return "create_article";
     }
 
-    @PostMapping ("/vendre")
-    public String venteArticlePost(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,
+    @PostMapping ("/create_article")
+    public String PageVendreUnArticlePost(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,
                                    BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "details_article";
+            return "create_article";
         }
 
         articleVenduService.createArticleVendu(articleVendu);
 
-        return "redirect:/vente_article";
+        return "view_article";
 
     }
 
-    @GetMapping("/voir_vente")
-    public String displayVente(@RequestParam(name="noArticle") long noArticle, Model model) {
+    @GetMapping("/view_article")
+    public String PageEnchereNonCommencee(@RequestParam(name="noArticle") long noArticle, Model model) {
         ArticleVendu articleVendu = articleVenduService.getArticleVenduByNoArticle(noArticle);
         model.addAttribute("ArticleVendu", articleVendu);
 
-        return "vente_article";
+        return "view_article";
 
     }
 
