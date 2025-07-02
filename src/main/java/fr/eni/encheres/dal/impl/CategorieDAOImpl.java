@@ -26,13 +26,12 @@ public class CategorieDAOImpl implements CategorieDAO {
     }
 
     @Override
-    public Categorie readNoCategorie(long noCategorie) {
+    public Categorie readCategorie(long noCategorie) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("noCategorie", noCategorie);
 
         return jdbcTemplate.queryForObject(SELECT_ID, params, new BeanPropertyRowMapper<>(Categorie.class));
     }
-
 
     @Override
     public List<Categorie> getAll() {

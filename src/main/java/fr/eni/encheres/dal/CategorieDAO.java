@@ -5,7 +5,7 @@ import fr.eni.encheres.bo.Categorie;
 import java.util.List;
 
 public interface CategorieDAO {
-    Categorie readNoCategorie(long noCategorie);
+    Categorie readCategorie(long noCategorie);
     List<Categorie> getAll();
     void createCategorie(Categorie categorie);
     void updateCategorie(Categorie categorie);
