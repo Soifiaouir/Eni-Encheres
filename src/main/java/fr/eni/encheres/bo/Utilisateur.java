@@ -15,16 +15,14 @@ public class Utilisateur {
     private String codePostal;
     private String ville;
     private String motDePasse;
-    private int credit = 0;
-    private boolean administrateur = false;
+    private int credit;
+    private boolean administrateur;
 
     private List<ArticleVendu> lstArticles = new ArrayList<>();
-
     private List<Enchere> lstEncheres = new ArrayList<>();
 
     public Utilisateur() {
     }
-
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 

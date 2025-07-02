@@ -13,8 +13,7 @@ public interface UtilisateurDAO {
     public List<Utilisateur> readAllUtilisateurs();
     public void deleteUtilisateur(long id);
 
-    // MDP OUBLIE
-    public int checkUtilisateurByLogin(String pseudo, String email);
-    public String findPseudoByEmail(String email);
-
+    // SIGN CHECK
+    public int checkUtilisateurByPseudo(String pseudo);
+    public int checkUtilisateurByEmail(String email);
 }

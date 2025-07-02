@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Nohemi";
+    src: url('../font/Nohemi-VF.ttf') format("opentype")
+}
+body {
+    font-family: "Nohemi", sans-serif;
+    font-optical-sizing: auto;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+div.relative:has(input:focus) label {
+    color: #171717;
+}
