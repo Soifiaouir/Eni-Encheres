@@ -30,7 +30,7 @@ public class RetraitDAOImpl implements RetraitDAO {
     }
 
     @Override
-    public Retrait readRetrait(long noArticle) {
+    public Retrait readByArticle(long noArticle) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("no_article", noArticle);
         return jdbcTemplate.queryForObject(SELECT_BY_ARTICLE, params, new RetraitMapper());
@@ -66,6 +66,7 @@ public class RetraitDAOImpl implements RetraitDAO {
         jdbcTemplate.update(DELETE_RETRAIT, params);
 
     }
+
 
     class RetraitMapper implements RowMapper<Retrait> {
         @Override
