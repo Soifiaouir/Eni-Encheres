@@ -9,9 +9,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +29,9 @@ public class EnchereDAOImpl implements EnchereDAO {
     private final String SELECT_ARTICLE = "SELECT * FROM ENCHERES WHERE NO_ARTICLE = :noArticle";
     private final String CREATE_ENCHERE ="INSERT INTO ENCHERES (DATE_ENCHERE, MONTANT_ENCHERE,NO_ARTICLE,NO_UTILISATEUR)" +
             " VALUE (date_enchere,:montant_enchere, :no_article, :no_utilisateur)";
-    private final String DELEATE_ENCHERE ="DELETE FROM ENCHERES WHERE NO_ENCHERE = :noEnchere";
+    private final String FIND_ALL_ENCHERES ="SELECT NO_ENCHERE, DATE_ENCHERE, MONTANT_ENCHERE, NO_ARTICLE, NO_UTILISATEUR FROM ENCHERES";
+
+    private final String DELETE_ENCHERE ="DELETE FROM ENCHERES WHERE NO_ENCHERE = :noEnchere";
     private final String UPDATE_ENCHERE = "UPDATE ENCHERES SET DATE_ENCHERE = :dateeEnchere, " +
             "MONTANT-ENCHERE = :montant_enchere, NO_ENCHERE= :no_enchere," +
             " NO_UTILISATEUR = :no_utilisateur where NO_ENCHERE = :no_enchere";
@@ -38,11 +44,29 @@ public class EnchereDAOImpl implements EnchereDAO {
     }
 
     @Override
-    public Enchere readByNoEnchere(Long noEnchere) {
+    public Enchere readByNoEnchere(long noEnchere) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("no_enchere", noEnchere);
 
         return jdbcTemplate.queryForObject(SELECT_ID,params, new BeanPropertyRowMapper<>(Enchere.class));
+    }
+
+    @Override
+    public List<Enchere> findListEncheres(long noArticleVendu) {
+        SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate.getJdbcTemplate())
+                .withProcedureName("FindListEncheres")
+                .returningResultSet("encheres",
+                        new BeanPropertyRowMapper<Enchere>(Enchere.class));
+
+        SqlParameterSource in = new MapSqlParameterSource().addValue("no_article", noArticleVendu);
+        Map<String, Object> result = jdbcCall.execute(in);
+
+        if (result.get("encheres" )!=null) {
+            List<Enchere> encheres = (List<Enchere>)result.get("encheres");
+            return encheres;
+        }
+
+        return null;
     }
 
     @Override
@@ -68,7 +92,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("no_enchere", noEnchere);
 
-        jdbcTemplate.update(DELEATE_ENCHERE, params);
+        jdbcTemplate.update(DELETE_ENCHERE, params);
     }
 
     @Override
