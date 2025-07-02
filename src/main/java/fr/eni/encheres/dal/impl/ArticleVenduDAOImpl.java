@@ -1,6 +1,7 @@
 package fr.eni.encheres.dal.impl;
 
 import fr.eni.encheres.bo.ArticleVendu;
+import fr.eni.encheres.bo.Retrait;
 import fr.eni.encheres.dal.ArticleVenduDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -162,9 +163,6 @@ public class ArticleVenduDAOImpl implements ArticleVenduDAO {
 
           return jdbcTemplate.queryForObject(FIND_PRIX_VENTE, params, Integer.class);
      }
-
-
-
 
 
 
