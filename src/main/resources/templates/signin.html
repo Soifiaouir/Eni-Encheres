@@ -1,41 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr" th:replace="~{layouts/layout-auth :: layout-enchere(
-					titrePage=~{:: title},
+					titrePage='Inscription - Eni Encheres',
 					contenuPage=~{:: main},
 					ressourcesSupp=~{})}">
-<head>
-    <title>Title</title>
-</head>
-<body>
-<main class="bg-neutral-200 rounded-b-lg min-h-[94vh] py-4 flex flex-col">
+<main class="min-h-[100vh] py-4 flex flex-col">
     <div class="w-full px-5 mt-auto">
         <section>
             <h1 th:text="#{signin.view.h1}"
-                class="text-4xl font-medium mb-10 text-center">
+                class="text-4xl font-medium mb-10 text-center text-neutral-900">
                 Inscription</h1>
             <form action="/signin"
                   method="POST"
-                  th:object="${utilisateur}">
+                  th:object="${utilisateurDTO}">
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
                         <label th:text="#{signin.form.label-pseudo}"
-                               th:classappend="${#fields.hasErrors('pseudo') || errorPseudo != null ? 'text-red-400' : 'text-neutral-600'}"
+                               th:classappend="${#fields.hasErrors('pseudo') ? 'text-red-400' : 'text-neutral-600'}"
                                for="pseudo"
                                class="control-label font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{pseudo}"
-                           th:value="${userReturn != null ? userReturn.pseudo : ''}"
-                           th:classappend="${#fields.hasErrors('pseudo') || errorPseudo != null ? 'border-red-400' : 'border-neutral-600'}"
+                           th:classappend="${#fields.hasErrors('pseudo') ? 'border-red-400' : 'border-neutral-600'}"
                            type="text"
                            name="pseudo"
                            id="pseudo"
                            class="border  rounded-lg w-full px-2 py-1 pt-1.5" required>
                     <div data-th-replace="~{fragments/error/fragment-error :: frag-error('pseudo')}"></div>
-                    <div class="absolute bottom-0 end-0 translate-y-2 pe-5"
-                         data-th-if="${errorPseudo != null}">
-                        <p class="text-red-400 text-xs px-2 bg-neutral-200 font-semibold"
-                           data-th-text="#{validation.pseudo.unique}"></p>
-                    </div>
                 </div>
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
@@ -45,7 +35,6 @@
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{nom}"
-                           th:value="${userReturn != null ? userReturn.nom : ''}"
                            th:classappend="${#fields.hasErrors('nom') ? 'border-red-400' : 'border-neutral-600'}"
                            type="text"
                            name="nom"
@@ -61,7 +50,6 @@
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{prenom}"
-                           th:value="${userReturn != null? userReturn.prenom : ''}"
                            th:classappend="${#fields.hasErrors('prenom') ? 'border-red-400' : 'border-neutral-600'}"
                            type="text"
                            name="prenom"
@@ -72,23 +60,17 @@
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
                         <label th:text="#{signin.form.label-email}"
-                               th:classappend="${#fields.hasErrors('email') || errorPseudo != null ? 'text-red-400' : 'text-neutral-600'}"
+                               th:classappend="${#fields.hasErrors('email') ? 'text-red-400' : 'text-neutral-600'}"
                                for="email"
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{email}"
-                           th:value="${userReturn != null  && errorEmail == null  ? userReturn.email : ''}"
-                           th:classappend="${#fields.hasErrors('email') || errorPseudo != null ? 'border-red-400' : 'border-neutral-600'}"
+                           th:classappend="${#fields.hasErrors('email') ? 'border-red-400' : 'border-neutral-600'}"
                            type="email"
                            name="email"
                            id="email"
                            class="border rounded-lg w-full px-2 py-1" required>
                     <div data-th-replace="~{fragments/error/fragment-error :: frag-error('email')}"></div>
-                    <div class="absolute bottom-0 end-0 translate-y-2 pe-5"
-                         data-th-if="${errorPseudo != null}">
-                        <p class="text-red-400 text-xs px-2 bg-neutral-200 font-semibold"
-                           data-th-text="#{validation.email.unique}"></p>
-                    </div>
                 </div>
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
@@ -98,7 +80,6 @@
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{telephone}"
-                           th:value="${userReturn != null ? userReturn.telephone : ''}"
                            th:classappend="${#fields.hasErrors('telephone') ? 'border-red-400' : 'border-neutral-600'}"
                            type="tel"
                            name="telephone"
@@ -114,31 +95,27 @@
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{rue}"
-                           th:value="${userReturn != null ? userReturn.rue : ''}"
                            th:classappend="${#fields.hasErrors('rue') ? 'border-red-400' : 'border-neutral-600'}"
                            type="text"
                            name="rue"
                            id="rue"
                            class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
                     <div data-th-replace="~{fragments/error/fragment-error :: frag-error('rue')}"></div>
-
                 </div>
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
                         <label th:text="#{signin.form.label-cp}"
                                th:classappend="${#fields.hasErrors('codePostal') ? 'text-red-400' : 'text-neutral-600'}"
-                               for="cp"
+                               for="codePostal"
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{codePostal}"
-                           th:value="${userReturn != null ? userReturn.codePostal : ''}"
                            th:classappend="${#fields.hasErrors('codePostal') ? 'border-red-400' : 'border-neutral-600'}"
                            type="number"
                            name="codePostal"
-                           id="cp"
+                           id="codePostal"
                            class="border border-neutral-600 rounded-lg w-full px-2 py-1 pt-1.5" required>
                     <div data-th-replace="~{fragments/error/fragment-error :: frag-error('codePostal')}"></div>
-
                 </div>
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
@@ -159,43 +136,46 @@
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
                         <label th:text="#{signin.form.label-mdp}"
-                               th:classappend="${#fields.hasErrors('motDePasse') ? 'text-red-400' : 'text-neutral-600'}"
+                               th:classappend="${#fields.hasErrors('motDePasse') || #fields.hasErrors('motDePasseConfirm')  ? 'text-red-400' : 'text-neutral-600'}"
                                for="motDePasse"
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
                     <input th:field="*{motDePasse}"
-                           th:classappend="${#fields.hasErrors('motDePasse') ? 'border-red-400' : 'border-neutral-600'}"
+                           th:classappend="${#fields.hasErrors('motDePasse') || #fields.hasErrors('motDePasseConfirm')  ? 'border-red-400' : 'border-neutral-600'}"
                            type="password"
                            name="motDePasse"
                            id="motDePasse"
                            class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
                     <div data-th-replace="~{fragments/error/fragment-error :: frag-error('motDePasse')}"></div>
-
                 </div>
                 <div class="w-full relative mb-4">
                     <div class="absolute top-0 -translate-y-3 ps-5">
                         <label th:text="#{signin.form.label-mdpConfirm}"
+                               th:classappend="${#fields.hasErrors('motDePasseConfirm') || #fields.hasErrors('motDePasse') ? 'text-red-400' : 'text-neutral-600'}"
                                for="motDePasseConfirm"
                                class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
                     </div>
-                    <input type="password"
+                    <input th:field="*{motDePasseConfirm}"
+                           th:classappend="${#fields.hasErrors('motDePasseConfirm') || #fields.hasErrors('motDePasse')  ? 'border-red-400' : 'border-neutral-600'}"
+                           type="password"
                            name="motDePasseConfirm"
                            id="motDePasseConfirm"
-                           class="border border-neutral-600 rounded-lg w-full px-2 py-1 pt-1.5" required>
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('motDePasseConfirm')}"></div>
                 </div>
-                <div class="text-sm mt-5">
+                <div class="text-sm mb-4">
                     <button th:text="#{signin.form.submit}"
                             class="bg-lime-200 w-full py-2 pb-1.5 font-semibold rounded-lg"></button>
+                    <p class="text-neutral-500 text-xs mt-3" th:text="#{signin.form.required}"></p>
                 </div>
             </form>
-            <div class="w-full mt-10 text-center text-sm">
-                <p th:text="#{signin.view.a-hook}"
-                   class="font-medium mb-2"></p>
-                <a th:text="#{signin.view.a}" href="/login"
+            <div class="w-full text-center text-sm">
+                <p th:text="#{signin.login.a-hook}"
+                   class="font-medium mb-2 text-neutral-900"></p>
+                <a th:text="#{signin.login.a}" href="/login"
                    class="bg-neutral-900 text-neutral-200 py-2 pb-1.5 font-medium rounded-lg w-full block"></a>
             </div>
         </section>
     </div>
 </main>
-</body>
 </html>

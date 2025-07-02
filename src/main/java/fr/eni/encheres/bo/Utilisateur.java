@@ -11,44 +11,23 @@ import java.util.List;
 public class Utilisateur {
 
     private long noUtilisateur;
-
-    @NotBlank
-    @Pattern(regexp = "^[a-zA-Z0-9]+$")
     private String pseudo;
-
-    @NotBlank
     private String nom;
-
-    @NotBlank
     private String prenom;
-
-    @NotBlank
     private String email;
-
-    @NotBlank
     private String telephone;
-
-    @NotBlank
     private String rue;
-
-    @NotBlank
     private String codePostal;
-
-    @NotBlank
     private String ville;
-
-    @NotBlank
     private String motDePasse;
-    private int credit = 100;
-    private boolean administrateur = false;
+    private int credit;
+    private boolean administrateur;
 
     private List<ArticleVendu> lstArticles = new ArrayList<>();
-
     private List<Enchere> lstEncheres = new ArrayList<>();
 
     public Utilisateur() {
     }
-
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse, int credit, boolean administrateur) {
 

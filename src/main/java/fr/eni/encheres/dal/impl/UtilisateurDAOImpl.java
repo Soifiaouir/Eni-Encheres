@@ -17,7 +17,7 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
 
     private static final String INSERT_UTILISATEUR = """
             INSERT  INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur)
-            VALUES  (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, 0, 0)
+            VALUES  (:pseudo, :nom, :prenom, :email, :telephone, :rue, :code_postal, :ville, :mot_de_passe, :credit, :administrateur)
     """;
     private static final String UPDATE_UTILISATEUR = """
             UPDATE UTILISATEURS
