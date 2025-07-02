@@ -16,9 +16,6 @@ public class EnchereSecurityConfig {
             SELECT pseudo, mot_de_passe, 1 FROM UTILISATEURS WHERE pseudo = :pseudo
             """;
 
-    @Bean
-    Us
-
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

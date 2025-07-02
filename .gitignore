@@ -8,3 +8,5 @@
 
 # Option : on inclut le gitignore lui-même
 !.gitignore
+
+.gradle/
