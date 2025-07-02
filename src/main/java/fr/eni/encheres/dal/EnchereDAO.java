@@ -2,11 +2,14 @@ package fr.eni.encheres.dal;
 
 import fr.eni.encheres.bo.Enchere;
 
+import java.util.List;
+
 public interface EnchereDAO {
-    Enchere readByNoEnchere(Long noEnchere);
+    Enchere readByNoEnchere(long noEnchere);
+
     void createEnchere(Enchere enchere);
     void deleteEnchere(long noEnchere);
     void updateEnchere(Enchere enchere);
 
-
+    List<Enchere> findListEncheres(long noArticleVendu);
 }

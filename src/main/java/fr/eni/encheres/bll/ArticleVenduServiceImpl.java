@@ -1,7 +1,8 @@
 package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bo.*;
-import fr.eni.encheres.dal.ArticleVenduDAO;
+import fr.eni.encheres.config.BusinessException;
+import fr.eni.encheres.dal.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,13 +14,14 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
     private ArticleVenduDAO articleVenduDAO;
 
-    // private UtilisateurDAO utilisateurDAO;
+     private UtilisateurDAO utilisateurDAO;
 
-    // private EnchereDAO enchereDAO;
+     private EnchereDAO enchereDAO;
 
-    // private CategorieDAO categorieDAO;
+     private CategorieDAO categorieDAO;
 
-    // private RetraitDAO  retraitDAO;
+     private RetraitDAO retraitDAO;
+
 
     public ArticleVenduServiceImpl(ArticleVenduDAO articleVenduDAO) {
         this.articleVenduDAO = articleVenduDAO;
@@ -34,11 +36,11 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     public List<ArticleVendu> getLstArticleVendus() {
         List<ArticleVendu> lstArticlesVendus = articleVenduDAO.getAllArticleVendu();
 
-      /*  if (lstArticlesVendus != null) {
+        if (lstArticlesVendus != null) {
             lstArticlesVendus.forEach(articleVendu -> {
-                setUtilisateurEncheresRetraitCategorie1article(articleVendu);
+                setUtilisateurCategorieRetrait1article(articleVendu);
             });
-        } */
+        }
 
         return lstArticlesVendus;
     }
@@ -53,14 +55,15 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     public ArticleVendu getArticleVenduByNoArticle(long noArticle) {
         ArticleVendu articleVendu = articleVenduDAO.getArticleVendu(noArticle);
 
-     /*   if (articleVendu != null) {
-            setUtilisateurEncheresRetraitCategorie1article(articleVendu);
+          if (articleVendu != null) {
+           setUtilisateurCategorieRetrait1article(articleVendu);
 
-            // TODO : faire un lien entre EnchereDAO et l'ArticleVendu
+            List<Enchere> lstEncheres = enchereDAO.findListEncheres(noArticle);
+            if (lstEncheres != null) {
+                articleVendu.setLstEncheres(lstEncheres);
+            }
 
-            // TODO faire un lien potentiel avec d'autres DAO
-
-        } */
+        }
 
         return articleVendu;
     }
@@ -71,17 +74,16 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
      * @param articleVendu
      */
 
-  /**  private void setUtilisateurEncheresRetraitCategorie1article (ArticleVendu articleVendu) {
-        Utilisateur utilisateur = utilisateurDAO.read(articleVendu.getUtilisateur().getNoUtilisateur());
+   private void setUtilisateurCategorieRetrait1article(ArticleVendu articleVendu) {
+        Utilisateur utilisateur = utilisateurDAO.readUtilisateurById(articleVendu.getUtilisateur().getNoUtilisateur());
         articleVendu.setUtilisateur(utilisateur);
-        List <Enchere> lstEncheres = enchereDAO.read(articleVendu.getLstEncheres());
-        articleVendu.setLstEncheres(lstEncheres);
-        Categorie categorie = categorieDAO.read(articleVendu.getCategorie().getNoCategorie());
+       // Enchere enchere = enchereDAO.readByNoEnchere(articleVendu
+        Categorie categorie = categorieDAO.readCategorie(articleVendu.getCategorie().getNoCategorie());
         articleVendu.setCategorie(categorie);
-        Retrait retrait = retraitDAO.read(articleVendu.getLieuRetrait());
+        Retrait retrait = retraitDAO.readRetrait(articleVendu.getNoArticle());
         articleVendu.setLieuRetrait(retrait);
 
-    } **/
+    }
 
     /** Method used to know what is the state of the auction (begun, ended, not already began)
      *
@@ -109,6 +111,9 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
     @Override
     public void createArticleVendu(ArticleVendu articleVendu) {
+
+        BusinessException be = new BusinessException();
+
         articleVenduDAO.createArticle(articleVendu);
     }
 
@@ -127,11 +132,6 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
     public String getNameArticleVendu(long noArticle) {
         return articleVenduDAO.findNomArticle(noArticle);
     }
-
-
-
-
-
 
 
 }
