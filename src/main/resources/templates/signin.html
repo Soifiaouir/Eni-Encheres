@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr" th:replace="~{layouts/layout-auth :: layout-enchere(
+					titrePage=~{:: title},
+					contenuPage=~{:: main},
+					ressourcesSupp=~{})}">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<main class="bg-neutral-200 rounded-b-lg min-h-[94vh] py-4 flex flex-col">
+    <div class="w-full px-5 mt-auto">
+        <section>
+            <h1 th:text="#{signin.view.h1}"
+                class="text-4xl font-medium mb-10 text-center">
+                Inscription</h1>
+            <form action="/signin"
+                  method="POST"
+                  th:object="${utilisateur}">
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-pseudo}"
+                               th:classappend="${#fields.hasErrors('pseudo') || errorPseudo != null ? 'text-red-400' : 'text-neutral-600'}"
+                               for="pseudo"
+                               class="control-label font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{pseudo}"
+                           th:value="${userReturn != null ? userReturn.pseudo : ''}"
+                           th:classappend="${#fields.hasErrors('pseudo') || errorPseudo != null ? 'border-red-400' : 'border-neutral-600'}"
+                           type="text"
+                           name="pseudo"
+                           id="pseudo"
+                           class="border  rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('pseudo')}"></div>
+                    <div class="absolute bottom-0 end-0 translate-y-2 pe-5"
+                         data-th-if="${errorPseudo != null}">
+                        <p class="text-red-400 text-xs px-2 bg-neutral-200 font-semibold"
+                           data-th-text="#{validation.pseudo.unique}"></p>
+                    </div>
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-nom}"
+                               th:classappend="${#fields.hasErrors('nom') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="nom"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{nom}"
+                           th:value="${userReturn != null ? userReturn.nom : ''}"
+                           th:classappend="${#fields.hasErrors('nom') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="text"
+                           name="nom"
+                           id="nom"
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('nom')}"></div>
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-prenom}"
+                               th:classappend="${#fields.hasErrors('prenom') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="prenom"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{prenom}"
+                           th:value="${userReturn != null? userReturn.prenom : ''}"
+                           th:classappend="${#fields.hasErrors('prenom') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="text"
+                           name="prenom"
+                           id="prenom"
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('prenom')}"></div>
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-email}"
+                               th:classappend="${#fields.hasErrors('email') || errorPseudo != null ? 'text-red-400' : 'text-neutral-600'}"
+                               for="email"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{email}"
+                           th:value="${userReturn != null  && errorEmail == null  ? userReturn.email : ''}"
+                           th:classappend="${#fields.hasErrors('email') || errorPseudo != null ? 'border-red-400' : 'border-neutral-600'}"
+                           type="email"
+                           name="email"
+                           id="email"
+                           class="border rounded-lg w-full px-2 py-1" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('email')}"></div>
+                    <div class="absolute bottom-0 end-0 translate-y-2 pe-5"
+                         data-th-if="${errorPseudo != null}">
+                        <p class="text-red-400 text-xs px-2 bg-neutral-200 font-semibold"
+                           data-th-text="#{validation.email.unique}"></p>
+                    </div>
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-telephone}"
+                               th:classappend="${#fields.hasErrors('telephone') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="telephone"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{telephone}"
+                           th:value="${userReturn != null ? userReturn.telephone : ''}"
+                           th:classappend="${#fields.hasErrors('telephone') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="tel"
+                           name="telephone"
+                           id="telephone"
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('telephone')}"></div>
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-rue}"
+                               th:classappend="${#fields.hasErrors('rue') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="rue"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{rue}"
+                           th:value="${userReturn != null ? userReturn.rue : ''}"
+                           th:classappend="${#fields.hasErrors('rue') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="text"
+                           name="rue"
+                           id="rue"
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('rue')}"></div>
+
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-cp}"
+                               th:classappend="${#fields.hasErrors('codePostal') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="cp"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{codePostal}"
+                           th:value="${userReturn != null ? userReturn.codePostal : ''}"
+                           th:classappend="${#fields.hasErrors('codePostal') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="number"
+                           name="codePostal"
+                           id="cp"
+                           class="border border-neutral-600 rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('codePostal')}"></div>
+
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-ville}"
+                               th:classappend="${#fields.hasErrors('ville') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="ville"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{ville}"
+                           th:classappend="${#fields.hasErrors('ville') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="text"
+                           name="ville"
+                           id="ville"
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('ville')}"></div>
+
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-mdp}"
+                               th:classappend="${#fields.hasErrors('motDePasse') ? 'text-red-400' : 'text-neutral-600'}"
+                               for="motDePasse"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input th:field="*{motDePasse}"
+                           th:classappend="${#fields.hasErrors('motDePasse') ? 'border-red-400' : 'border-neutral-600'}"
+                           type="password"
+                           name="motDePasse"
+                           id="motDePasse"
+                           class="border rounded-lg w-full px-2 py-1 pt-1.5" required>
+                    <div data-th-replace="~{fragments/error/fragment-error :: frag-error('motDePasse')}"></div>
+
+                </div>
+                <div class="w-full relative mb-4">
+                    <div class="absolute top-0 -translate-y-3 ps-5">
+                        <label th:text="#{signin.form.label-mdpConfirm}"
+                               for="motDePasseConfirm"
+                               class="font-medium text-sm text-neutral-600 bg-neutral-200 px-2"></label>
+                    </div>
+                    <input type="password"
+                           name="motDePasseConfirm"
+                           id="motDePasseConfirm"
+                           class="border border-neutral-600 rounded-lg w-full px-2 py-1 pt-1.5" required>
+                </div>
+                <div class="text-sm mt-5">
+                    <button th:text="#{signin.form.submit}"
+                            class="bg-lime-200 w-full py-2 pb-1.5 font-semibold rounded-lg"></button>
+                </div>
+            </form>
+            <div class="w-full mt-10 text-center text-sm">
+                <p th:text="#{signin.view.a-hook}"
+                   class="font-medium mb-2"></p>
+                <a th:text="#{signin.view.a}" href="/login"
+                   class="bg-neutral-900 text-neutral-200 py-2 pb-1.5 font-medium rounded-lg w-full block"></a>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>
