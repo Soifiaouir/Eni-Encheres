@@ -28,11 +28,18 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
             WHERE no_utilisateur = :no_utilisateur
     """;
     private static final String READ_BY_ID = """
-            SELECT * FROM UTILISATEURS
+            SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit, administrateur
+            FROM UTILISATEURS
             WHERE no_utilisateur = :no_utilisateur
     """;
+    private static final String READ_BY_PSEUDO = """
+            SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit, administrateur
+            FROM UTILISATEURS
+            WHERE pseudo = :pseudo
+    """;
     private static final String READ_ALL = """
-            SELECT * FROM UTILISATEURS
+            SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit, administrateur
+            FROM UTILISATEURS
     """;
     private static final String DELETE_BY_ID = """
             DELETE FROM UTILISATEURS WHERE  no_utilisateur = :no_utilisateur
@@ -89,6 +96,14 @@ public class UtilisateurDAOImpl implements UtilisateurDAO {
         map.addValue("no_utilisateur", id);
 
         return jdbcTemplate.queryForObject(READ_BY_ID, map, new BeanPropertyRowMapper<>(Utilisateur.class));
+    }
+
+    @Override
+    public Utilisateur readUtilisateurByPseudo(String pseudo) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue("pseudo", pseudo);
+
+        return jdbcTemplate.queryForObject(READ_BY_PSEUDO, map, new BeanPropertyRowMapper<>(Utilisateur.class));
     }
 
     @Override

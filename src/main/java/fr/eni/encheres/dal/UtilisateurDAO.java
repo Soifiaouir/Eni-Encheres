@@ -10,6 +10,7 @@ public interface UtilisateurDAO {
     public void createUtilisateur(Utilisateur utilisateur);
     public void updateUtilisateur(Utilisateur utilisateur);
     public Utilisateur readUtilisateurById(long id);
+    public Utilisateur readUtilisateurByPseudo(String pseudo);
     public List<Utilisateur> readAllUtilisateurs();
     public void deleteUtilisateur(long id);
 
