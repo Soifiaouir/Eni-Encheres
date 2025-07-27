@@ -1,7 +1,8 @@
-package fr.eni.encheres.bll;
+package fr.eni.encheres.bll.impl;
 
+import fr.eni.encheres.bll.ArticleVenduService;
 import fr.eni.encheres.bo.*;
-import fr.eni.encheres.config.BusinessException;
+import fr.eni.encheres.exception.BusinessException;
 import fr.eni.encheres.dal.*;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,13 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
 
     private ArticleVenduDAO articleVenduDAO;
 
-     private UtilisateurDAO utilisateurDAO;
+    private UtilisateurDAO utilisateurDAO;
 
-     private EnchereDAO enchereDAO;
+    private EnchereDAO enchereDAO;
 
-     private CategorieDAO categorieDAO;
+    private CategorieDAO categorieDAO;
 
-     private RetraitDAO retraitDAO;
+    private RetraitDAO retraitDAO;
 
 
     public ArticleVenduServiceImpl(ArticleVenduDAO articleVenduDAO) {
@@ -58,7 +59,7 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
           if (articleVendu != null) {
            setUtilisateurCategorieRetrait1article(articleVendu);
 
-            List<Enchere> lstEncheres = enchereDAO.findListEncheres(noArticle);
+            List<Enchere> lstEncheres = enchereDAO.readByArticle(noArticle);
             if (lstEncheres != null) {
                 articleVendu.setLstEncheres(lstEncheres);
             }
@@ -75,12 +76,12 @@ public class ArticleVenduServiceImpl implements ArticleVenduService {
      */
 
    private void setUtilisateurCategorieRetrait1article(ArticleVendu articleVendu) {
-        Utilisateur utilisateur = utilisateurDAO.readUtilisateurById(articleVendu.getUtilisateur().getNoUtilisateur());
-        articleVendu.setUtilisateur(utilisateur);
+        //Utilisateur utilisateur = utilisateurDAO.readUtilisateurById(articleVendu.getUtilisateur().getNoUtilisateur());
+        //articleVendu.setUtilisateur(utilisateur);
        // Enchere enchere = enchereDAO.readByNoEnchere(articleVendu
-        Categorie categorie = categorieDAO.readCategorie(articleVendu.getCategorie().getNoCategorie());
-        articleVendu.setCategorie(categorie);
-        Retrait retrait = retraitDAO.readRetrait(articleVendu.getNoArticle());
+        //Categorie categorie = categorieDAO.readCategorie(articleVendu.getCategorie().getNoCategorie());
+        //articleVendu.setCategorie(categorie);
+        Retrait retrait = retraitDAO.readByArticle(articleVendu.getNoArticle());
         articleVendu.setLieuRetrait(retrait);
 
     }

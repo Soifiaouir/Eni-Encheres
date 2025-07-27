@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.naming.Binding;
 import java.util.List;
 
+
 @Controller
 public class VenteController {
 
@@ -21,41 +22,52 @@ public class VenteController {
         this.articleVenduService = articleVenduService;
     }
 
-    @GetMapping("/articles")
-    public String displayArticles(Model model) {
+    @GetMapping("/list_articles")
+    public String pagesListesEncheres(Model model) {
         List<ArticleVendu> list = articleVenduService.getLstArticleVendus();
         model.addAttribute("articlesLst", list);
-        return "articles";
+
+        int articleListSize = list.size();
+        model.addAttribute("nmbArticles", articleListSize);
+
+        return "view_articles_list";
     }
 
     @GetMapping("/fiche_article")
-    public String MettreArticleEnVente(Model model) {
-        model.addAttribute("ArticleVendu", new ArticleVendu());
+    public String PageEnchereNonCommencee(@RequestParam(name="noArticle") long noArticle, Model model) {
+        ArticleVendu article = articleVenduService.getArticleVenduByNoArticle(noArticle);
+        model.addAttribute("articleVendu", article);
 
-        return "details_article";
+        String nomArticle = article.getNomArticle();
+
+        model.addAttribute("articleNom", nomArticle);
+
+        return "view_article";
+
     }
 
-    @PostMapping ("/vendre")
-    public String venteArticlePost(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,
+    @GetMapping("/creer_article")
+    public String PageVendreUnArticle(Model model) {
+        model.addAttribute("articleVendu", new ArticleVendu());
+
+        return "create_article";
+    }
+
+    @PostMapping ("/creer_article")
+    public String PageVendreUnArticlePost(@Valid @ModelAttribute("articleVendu") ArticleVendu articleVendu,
                                    BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "details_article";
+            return "create_article";
         }
 
         articleVenduService.createArticleVendu(articleVendu);
+        System.out.println(articleVendu);
 
-        return "redirect:/vente_article";
-
-    }
-
-    @GetMapping("/voir_vente")
-    public String displayVente(@RequestParam(name="noArticle") long noArticle, Model model) {
-        ArticleVendu articleVendu = articleVenduService.getArticleVenduByNoArticle(noArticle);
-        model.addAttribute("ArticleVendu", articleVendu);
-
-        return "vente_article";
+        return "view_article";
 
     }
+
+
 
     }
 

@@ -54,6 +54,16 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public Utilisateur findUtilisateurByPseudo(String pseudo) {
+        try {
+            System.out.println(pseudo);
+            return dao.readUtilisateurByPseudo(pseudo);
+        }  catch (DataAccessException e) {
+            throw new BusinessException(BusinessCode.DB_UTILISATEUR_INCONNU);
+        }
+    }
+
+    @Override
     public List<Utilisateur> findAllUtilisateurs() {
         try {
             return dao.readAllUtilisateurs();

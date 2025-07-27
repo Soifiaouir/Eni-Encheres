@@ -10,11 +10,11 @@ public interface UtilisateurDAO {
     public void createUtilisateur(Utilisateur utilisateur);
     public void updateUtilisateur(Utilisateur utilisateur);
     public Utilisateur readUtilisateurById(long id);
+    public Utilisateur readUtilisateurByPseudo(String pseudo);
     public List<Utilisateur> readAllUtilisateurs();
     public void deleteUtilisateur(long id);
 
-    // MDP OUBLIE
-    public int checkUtilisateurByLogin(String pseudo, String email);
-    public String findPseudoByEmail(String email);
-
+    // SIGN CHECK
+    public int checkUtilisateurByPseudo(String pseudo);
+    public int checkUtilisateurByEmail(String email);
 }

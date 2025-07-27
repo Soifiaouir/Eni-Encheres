@@ -10,6 +10,7 @@ public interface UtilisateurService {
     public void updateUtilisateur(Utilisateur utilisateur);
     public void deleteUtilisateur(long id);
     public Utilisateur findUtilisateurById(long id);
+    public Utilisateur findUtilisateurByPseudo(String pseudo);
     public List<Utilisateur> findAllUtilisateurs();
     public int checkPseudo(String pseudo);
     public int checkEmail(String email);

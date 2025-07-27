@@ -1,10 +1,7 @@
 package fr.eni.encheres.bll;
 
 import fr.eni.encheres.bo.ArticleVendu;
-import fr.eni.encheres.bo.Retrait;
-import jakarta.validation.Valid;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface ArticleVenduService {
